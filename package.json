@@ -1,0 +1,40 @@
+{
+  "name": "mimosa-testem-require",
+  "version": "0.10.1",
+  "homepage": "https://github.com/dbashford/mimosa-testem-require",
+  "author": "David Bashford",
+  "description": "A module for integrating test execution via testem and mocha into your Mimosa app",
+  "contributors": [
+    {
+      "name": "David Bashford",
+      "email": "dbashford@hotmail.com"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dbashford/mimosa-testem-require"
+  },
+  "keywords": [
+    "mimosa",
+    "mmodule",
+    "testem",
+    "testing",
+    "requirejs",
+    "mocha",
+    "sinon",
+    "chai"
+  ],
+  "dependencies": {
+    "wrench": "1.5.6",
+    "lodash": "2.4.1",
+    "mimosa-testem-simple": "0.9.1"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=0.8"
+  },
+  "main": "./lib/index",
+  "scripts": {
+    "prepublish": "mimosa build"
+  }
+}
