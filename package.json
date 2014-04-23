@@ -1,18 +1,21 @@
 {
-  "name": "mimosa-testem-require",
-  "version": "0.10.1",
-  "homepage": "https://github.com/dbashford/mimosa-testem-require",
-  "author": "David Bashford",
-  "description": "A module for integrating test execution via testem and mocha into your Mimosa app",
+  "name": "mimosa-testem-qunit",
+  "version": "0.0.0",
+  "homepage": "https://github.com/neverfox/mimosa-testem-qunit",
+  "author": "neverfox <github.to.soma@neverbox.com>",
+  "description": "A module for integrating test execution via testem and qunit into your Mimosa app",
   "contributors": [
     {
       "name": "David Bashford",
       "email": "dbashford@hotmail.com"
+    ,
+      "name": "neverfox",
+      "email": "github.to.soma@neverbox.com"
     }
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/dbashford/mimosa-testem-require"
+    "url": "https://github.com/neverfox/mimosa-testem-qunit"
   },
   "keywords": [
     "mimosa",
@@ -20,9 +23,8 @@
     "testem",
     "testing",
     "requirejs",
-    "mocha",
-    "sinon",
-    "chai"
+    "qunit",
+    "sinon"
   ],
   "dependencies": {
     "wrench": "1.5.6",
