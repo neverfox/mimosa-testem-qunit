@@ -1,0 +1,39 @@
+{
+  "name": "mimosa-testem-qunit",
+  "version": "0.1.0",
+  "homepage": "https://github.com/neverfox/mimosa-testem-qunit",
+  "author": "neverfox <github.to.soma@neverbox.com>",
+  "description": "A module for integrating test execution via testem and qunit into your Mimosa app",
+  "contributors": [
+    {
+      "name": "neverfox",
+      "email": "github.to.soma@neverbox.com"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/neverfox/mimosa-testem-qunit"
+  },
+  "keywords": [
+    "mimosa",
+    "mmodule",
+    "testem",
+    "testing",
+    "requirejs",
+    "qunit",
+    "sinon"
+  ],
+  "dependencies": {
+    "wrench": "1.5.6",
+    "lodash": "2.4.1",
+    "mimosa-testem-simple": "0.9.1"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=0.8"
+  },
+  "main": "./lib/index",
+  "scripts": {
+    "prepublish": "mimosa build"
+  }
+}
