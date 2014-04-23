@@ -19,13 +19,11 @@ testVariablesPath = null
 logger = null
 
 allAssets = [
-  "mocha.css",
+  "qunit.css",
   "runner.html",
   "run-tests.js",
   "require.min.js",
-  "chai.js",
-  "mocha.js",
-  "sinon-chai.js",
+  "qunit.js",
   "sinon.js"].map (asset) ->
   path.join __dirname, "..", "assets", asset
 
@@ -33,10 +31,10 @@ registration = (mimosaConfig, register) ->
   logger = mimosaConfig.log
   e = mimosaConfig.extensions
 
-  unless mimosaConfig.testemRequire.requireConfig
+  unless mimosaConfig.testemQUnit.requireConfig
     mimosaRequire = mimosaConfig.installedModules['mimosa-require']
     if not mimosaRequire
-      return logger.error "mimosa-testem-require is configured but cannot be used unless mimosa-require is installed and used."
+      return logger.error "mimosa-testem-qunit is configured but cannot be used unless mimosa-require is installed and used."
 
   register ['postBuild'], 'init', _ensureDirectory
   register ['postBuild'], 'init', _writeStaticAssets
@@ -51,16 +49,16 @@ registration = (mimosaConfig, register) ->
   register ['remove'], 'afterDelete', _removeSpec, e.javascript
 
   clientFolder = path.join mimosaConfig.watch.compiledJavascriptDir, "testem-require"
-  testVariablesPath = path.join mimosaConfig.testemRequire.assetFolderFull, "test-variables.js"
+  testVariablesPath = path.join mimosaConfig.testemQUnit.assetFolderFull, "test-variables.js"
 
-  if (mimosaConfig.testemRequire.executeDuringBuild and mimosaConfig.isBuild) or
-  (mimosaConfig.testemRequire.executeDuringWatch and mimosaConfig.isWatch)
+  if (mimosaConfig.testemQUnit.executeDuringBuild and mimosaConfig.isBuild) or
+  (mimosaConfig.testemQUnit.executeDuringWatch and mimosaConfig.isWatch)
     testemSimple.registration mimosaConfig, register
 
 _buildRequireConfig = (mimosaConfig, options, next) ->
 
-  requireConfig = if mimosaConfig.testemRequire.requireConfig
-    mimosaConfig.testemRequire.requireConfig
+  requireConfig = if mimosaConfig.testemQUnit.requireConfig
+    mimosaConfig.testemQUnit.requireConfig
   else
     mimosaRequire.requireConfig()
 
@@ -75,12 +73,10 @@ _buildRequireConfig = (mimosaConfig, options, next) ->
     newRequireConfig[k] = requireConfig[k]
 
   requireConfigString = JSON.stringify newRequireConfig, null, 2
-  mochaSetupString =  JSON.stringify mimosaConfig.testemRequire.mochaSetup, null, 2
   specFilesString = JSON.stringify specFiles.sort(), null, 2
 
   outputString = """
       window.MIMOSA_TEST_REQUIRE_CONFIG = #{requireConfigString};
-      window.MIMOSA_TEST_MOCHA_SETUP = #{mochaSetupString};
       window.MIMOSA_TEST_SPECS = #{specFilesString};
     """
 
@@ -105,13 +101,13 @@ _removeSpec = (mimosaConfig, options, next) ->
   next()
 
 _ensureDirectory = (mimosaConfig, options, next) ->
-  folder = mimosaConfig.testemRequire.assetFolderFull
+  folder = mimosaConfig.testemQUnit.assetFolderFull
   unless fs.existsSync folder
     wrench.mkdirSyncRecursive folder, 0o0777
   next()
 
 _writeStaticAssets = (mimosaConfig, options, next) ->
-  tr = mimosaConfig.testemRequire
+  tr = mimosaConfig.testemQUnit
 
   allAssets.filter (asset) ->
     tr.safeAssets.indexOf(path.basename(asset)) is -1
@@ -148,22 +144,22 @@ _writeTestemConfig = (mimosaConfig, options, next) ->
 
 __specs = (mimosaConfig, options, manipulateSpecs) ->
   for file in options.files
-    if mimosaConfig.testemRequire.specConvention.test(file.outputFileName)
+    if mimosaConfig.testemQUnit.specConvention.test(file.outputFileName)
       specPath = file.outputFileName.replace(mimosaConfig.watch.compiledJavascriptDir + path.sep, "")
       specPath = specPath.replace path.extname(specPath), ""
       specPath = specPath.split(path.sep).join('/')
       manipulateSpecs specPath
 
 __craftTestemConfig = (mimosaConfig, currentTestemConfig) ->
-  currentTestemConfig.test_page = "#{mimosaConfig.testemRequire.assetFolder}/runner.html"
+  currentTestemConfig.test_page = "#{mimosaConfig.testemQUnit.assetFolder}/runner.html"
   unless currentTestemConfig.routes
     currentTestemConfig.routes = {}
   jsDir = path.relative mimosaConfig.root, mimosaConfig.watch.compiledJavascriptDir
   currentTestemConfig.routes["/js"] = jsDir.split(path.sep).join('/')
-  _.extend currentTestemConfig, mimosaConfig.testemRequire.testemConfig
+  _.extend currentTestemConfig, mimosaConfig.testemQUnit.testemConfig
 
 __writeFile = (inPath, outPath) ->
-  logger.debug "Writing mimosa-testem-require file [[ #{outPath} ]]"
+  logger.debug "Writing mimosa-testem-qunit file [[ #{outPath} ]]"
   fileText = fs.readFileSync inPath, "utf8"
   fs.writeFileSync outPath, fileText
 

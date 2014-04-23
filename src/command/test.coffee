@@ -24,7 +24,7 @@ if "%1" == "ci" (
 
 _test = (config, opts) ->
   unless config.testemSimple?
-    return logger.error "testscript command used, but mimosa-testem-require not configured as project module."
+    return logger.error "testscript command used, but mimosa-testem-qunit not configured as project module."
 
   relativePath = path.relative config.root, config.testemSimple.configFile
   outPath = if opts.windows or (not opts.bash and process.platform is "win32")
