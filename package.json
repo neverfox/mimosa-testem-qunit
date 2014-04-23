@@ -1,14 +1,11 @@
 {
   "name": "mimosa-testem-qunit",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "homepage": "https://github.com/neverfox/mimosa-testem-qunit",
   "author": "neverfox <github.to.soma@neverbox.com>",
   "description": "A module for integrating test execution via testem and qunit into your Mimosa app",
   "contributors": [
     {
-      "name": "David Bashford",
-      "email": "dbashford@hotmail.com"
-    ,
       "name": "neverfox",
       "email": "github.to.soma@neverbox.com"
     }
